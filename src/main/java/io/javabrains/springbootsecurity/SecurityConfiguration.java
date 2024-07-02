@@ -20,6 +20,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .and()
                 .withUser("foo")
                 .password("foo")
+                .roles("ADMIN")
+                .and()
+                .withUser("umair")
+                .password("umair")
                 .roles("ADMIN");
     }
 
@@ -33,7 +37,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 .antMatchers("/admin").hasRole("ADMIN")
                 .antMatchers("/user").hasAnyRole("ADMIN", "USER")
-                .antMatchers("/").permitAll()
+                .antMatchers("/").permitAll() // permit this to all users (not even logged in)
                 .and().formLogin();
     }
 }
